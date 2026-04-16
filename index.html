@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guard - Premium Password Analyzer</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛡️</text></svg>">
 </head>
 <body>
+    <div class="bg-shape shape-1"></div>
+    <div class="bg-shape shape-2"></div>
     <main class="container">
         <header>
             <h1>Password Guard</h1>
@@ -18,7 +20,6 @@
                 type="password" 
                 id="password" 
                 placeholder="Enter your security phrase" 
-                onkeyup="updateUI()"
                 autocomplete="off"
             >
             <button type="button" class="toggle-password" id="toggleBtn" onclick="togglePassword()">
@@ -53,78 +54,6 @@
         </section>
     </main>
 
-    <script>
-        function updateUI() {
-            const password = document.getElementById("password").value;
-            const bar = document.getElementById("strength-bar");
-            const status = document.getElementById("strength-status");
-            
-            // Requirements
-            const checks = {
-                length: password.length >= 8,
-                upper: /[A-Z]/.test(password),
-                number: /[0-9]/.test(password),
-                symbol: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)
-            };
-
-            // Update Checklist
-            updateChecklistItem("req-length", checks.length);
-            updateChecklistItem("req-upper", checks.upper);
-            updateChecklistItem("req-number", checks.number);
-            updateChecklistItem("req-symbol", checks.symbol);
-
-            // Calculate Score
-            let score = 0;
-            if (password.length > 0) {
-                if (checks.length) score += 25;
-                if (checks.upper) score += 25;
-                if (checks.number) score += 25;
-                if (checks.symbol) score += 25;
-            }
-
-            // Update Meter
-            bar.style.width = score + "%";
-            
-            if (score === 0) {
-                status.innerText = "---";
-                status.style.color = "var(--text-secondary)";
-                bar.style.background = "transparent";
-            } else if (score <= 25) {
-                status.innerText = "WEAK";
-                status.style.color = "var(--weak)";
-                bar.style.background = "var(--weak)";
-            } else if (score <= 75) {
-                status.innerText = "MEDIUM";
-                status.style.color = "var(--medium)";
-                bar.style.background = "var(--medium)";
-            } else {
-                status.innerText = "STRONG";
-                status.style.color = "var(--strong)";
-                bar.style.background = "var(--strong)";
-            }
-        }
-
-        function updateChecklistItem(id, isValid) {
-            const el = document.getElementById(id);
-            if (isValid) {
-                el.classList.add("valid");
-            } else {
-                el.classList.remove("valid");
-            }
-        }
-
-        function togglePassword() {
-            const passwordField = document.getElementById("password");
-            const btn = document.getElementById("toggleBtn");
-
-            if (passwordField.type === "password") {
-                passwordField.type = "text";
-                btn.innerText = "HIDE";
-            } else {
-                passwordField.type = "password";
-                btn.innerText = "SHOW";
-            }
-        }
-    </script>
+    <script type="module" src="/main.js"></script>
 </body>
 </html>

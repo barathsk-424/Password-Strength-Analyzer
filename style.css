@@ -1,16 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
 
 :root {
-    --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
-    --card-bg: rgba(255, 255, 255, 0.05);
-    --card-border: rgba(255, 255, 255, 0.1);
+    --bg-primary: #020617;
+    --card-bg: rgba(15, 23, 42, 0.6);
+    --card-border: rgba(255, 255, 255, 0.08);
     --accent-blue: #38bdf8;
     --text-primary: #f8fafc;
     --text-secondary: #94a3b8;
     --weak: #ef4444;
     --medium: #f59e0b;
     --strong: #10b981;
-    --glass-blur: blur(16px);
+    --glass-blur: blur(20px);
 }
 
 * {
@@ -22,138 +22,150 @@
 
 body {
     min-height: 100vh;
-    background: var(--bg-gradient);
+    background-color: var(--bg-primary);
+    background-image: 
+        radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.05) 0, transparent 50%), 
+        radial-gradient(at 100% 0%, rgba(147, 51, 234, 0.05) 0, transparent 50%), 
+        radial-gradient(at 100% 100%, rgba(59, 130, 246, 0.05) 0, transparent 50%), 
+        radial-gradient(at 0% 100%, rgba(16, 185, 129, 0.05) 0, transparent 50%);
     display: flex;
     justify-content: center;
     align-items: center;
     color: var(--text-primary);
     overflow: hidden;
+    position: relative;
 }
 
-/* Background Glowing Orbs */
-body::before, body::after {
-    content: '';
+/* Animated Background Shapes - Refined */
+.bg-shape {
     position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    z-index: -1;
+    animation: float 25s infinite alternate ease-in-out;
+    opacity: 0.1; /* Reduced from 0.15 */
+}
+
+.shape-1 {
     width: 300px;
     height: 300px;
-    border-radius: 50%;
     background: var(--accent-blue);
-    filter: blur(100px);
-    opacity: 0.15;
-    z-index: -1;
-}
-
-body::before {
-    top: 10%;
+    top: 5%;
     left: 10%;
 }
 
-body::after {
-    bottom: 10%;
+.shape-2 {
+    width: 250px;
+    height: 250px;
+    background: #9333ea;
+    bottom: 5%;
     right: 10%;
+    animation-delay: -7s;
+}
+
+@keyframes float {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(60px, 30px) scale(1.05); }
 }
 
 .container {
     background: var(--card-bg);
     backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
     border: 1px solid var(--card-border);
-    border-radius: 24px;
-    padding: 40px;
-    width: 100%;
-    max-width: 400px;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-    animation: fadeIn 0.8s ease-out;
+    border-radius: 28px;
+    padding: 48px;
+    width: 90%;
+    max-width: 440px;
+    box-shadow: 
+        0 10px 15px -3px rgba(0, 0, 0, 0.2),
+        0 4px 6px -2px rgba(0, 0, 0, 0.1);
+    animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 0.3s ease;
 }
 
-@keyframes fadeIn {
+.container:hover {
+    transform: translateY(-2px);
+}
+
+@keyframes slideUp {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
 header {
     text-align: center;
-    margin-bottom: 32px;
+    margin-bottom: 40px;
 }
 
 h1 {
-    font-size: 24px;
-    font-weight: 600;
-    letter-spacing: -0.02em;
-    margin-bottom: 8px;
-    background: linear-gradient(to right, #fff, #94a3b8);
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    margin-bottom: 12px;
+    background: linear-gradient(135deg, #ffffff 0%, #94a3b8 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 p.subtitle {
     color: var(--text-secondary);
-    font-size: 14px;
+    font-size: 15px;
+    font-weight: 400;
+    opacity: 0.7;
 }
 
 .input-group {
     position: relative;
-    margin-bottom: 24px;
+    margin-bottom: 32px;
 }
 
-input[type="password"],
-input[type="text"] {
+input {
     width: 100%;
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(255, 255, 255, 0.02);
     border: 1px solid var(--card-border);
-    border-radius: 12px;
-    padding: 16px;
-    padding-right: 48px;
+    border-radius: 16px;
+    padding: 18px 24px;
+    padding-right: 64px;
     color: var(--text-primary);
     font-size: 16px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-weight: 500;
+    transition: all 0.2s ease;
 }
 
 input:focus {
     outline: none;
     border-color: var(--accent-blue);
-    box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.1);
     background: rgba(255, 255, 255, 0.05);
 }
 
 .toggle-password {
     position: absolute;
-    right: 16px;
+    right: 20px;
     top: 50%;
     transform: translateY(-50%);
-    background: none;
-    border: none;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    padding: 6px 10px;
     cursor: pointer;
     color: var(--text-secondary);
-    transition: color 0.2s;
-    font-size: 14px;
+    transition: all 0.2s;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
 }
 
 .toggle-password:hover {
+    background: rgba(255, 255, 255, 0.1);
     color: var(--text-primary);
 }
 
 /* Strength Meter */
-.strength-meter {
-    height: 6px;
-    width: 100%;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    margin-bottom: 12px;
-    overflow: hidden;
-    position: relative;
-}
-
-.strength-bar {
-    height: 100%;
-    width: 0%;
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    border-radius: 10px;
-}
-
 .strength-text {
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 600;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -162,40 +174,66 @@ input:focus {
 .strength-label {
     color: var(--text-secondary);
     text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 10px;
+}
+
+#strength-status {
     letter-spacing: 0.05em;
-    font-size: 11px;
+}
+
+.strength-meter {
+    height: 8px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    margin-bottom: 24px;
+    overflow: hidden;
+    position: relative;
+}
+
+.strength-bar {
+    height: 100%;
+    width: 0%;
+    /* FASTER TRANSITION for better response feel */
+    transition: width 0.3s cubic-bezier(0.2, 0, 0, 1), background 0.2s ease;
+    border-radius: 20px;
 }
 
 /* Checklist */
 .checklist {
     list-style: none;
-    display: grid;
-    gap: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
 .checklist-item {
-    font-size: 13px;
+    font-size: 14px;
     color: var(--text-secondary);
     display: flex;
     align-items: center;
-    gap: 8px;
-    transition: all 0.3s;
+    gap: 12px;
+    transition: all 0.2s ease;
+    opacity: 0.5;
 }
 
 .checklist-item.valid {
     color: var(--text-primary);
+    opacity: 1;
 }
 
 .checklist-item .icon {
-    width: 16px;
-    height: 16px;
-    border: 1.5px solid currentColor;
-    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 10px;
     flex-shrink: 0;
+    transition: all 0.2s;
 }
 
 .checklist-item.valid .icon {
@@ -206,4 +244,11 @@ input:focus {
 
 .checklist-item.valid .icon::before {
     content: '✓';
+    font-weight: 700;
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 32px 24px;
+    }
 }
