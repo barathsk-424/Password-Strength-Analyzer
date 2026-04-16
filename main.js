@@ -1,5 +1,3 @@
-import './style.css'
-
 function updateUI() {
     const passwordField = document.getElementById("password");
     if (!passwordField) return;
